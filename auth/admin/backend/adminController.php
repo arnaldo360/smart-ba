@@ -13,7 +13,7 @@ if (isset($_SESSION["id"]) && !empty($_SESSION["id"])) {
 
     if ($statement = $mysqli->prepare($sql)) {
         // Bind variables to the prepared statement as parameters
-        $statement->bind_param("s", $param_ID);
+        $statement->bind_param("i", $param_ID);
 
         // Set parameters
         $param_ID = $usersID;
