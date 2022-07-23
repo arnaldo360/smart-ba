@@ -53,7 +53,7 @@
 
                          <img src='../assets/img/undraw_profile_pic.png' alt='Profile' class='rounded-circle'>
                          <h2>$managerFullName</h2>
-                         <h3>Administrator</h3>
+                         <h3>Manager</h3>
 
                          <div class='social-links mt-2'>
                              <a href='#' class='twitter'><i class='bi bi-twitter'></i></a>
@@ -402,7 +402,7 @@
                                      <div class='row mb-3'>
                                          <label for='address' class='col-md-4 col-lg-3 col-form-label'>Date Of Birth</label>
                                          <div class='col-md-8 col-lg-9'>
-                                             <input type='text' class='form-control' id='address' name='dateOfBirth' value=" . $employeeDoB . ">
+                                             <input type='date' class='form-control' id='address' name='dateOfBirth' value=" . $employeeDoB . ">
                                          </div>
                                      </div>
 

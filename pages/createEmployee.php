@@ -11,8 +11,6 @@
 
     ?>
 
- <?php include("../backend/createEmployeeController.php"); ?>
-
  <?php include("include/title.php"); ?>
 
  <?php include("include/header.php"); ?>
@@ -36,10 +34,10 @@
 
                  <div class="card">
                      <div class="card-body">
-                         <h5 class="card-title">Create Employee <?php echo $barId; ?></h5>
+                         <h5 class="card-title">Create Employee</h5>
 
                          <!-- Floating Labels Form -->
-                         <form class="row g-3 needs-validation" id="createEmployeeForm" action="<?php echo htmlspecialchars($_SERVER['PHP_SELF']); ?>" method="POST" novalidate>
+                         <form class="row g-3 needs-validation" id="createEmployeeForm" action="../backend/createEmployeeController.php" method="POST" novalidate>
                              <div class="col-md-4">
                                  <div class="form-floating">
                                      <input type="text" class="form-control <?php echo (!empty($fullname_err)) ? 'is-invalid' : ''; ?>" id="fullname" placeholder="Employee Fullname" name="fullname" required>

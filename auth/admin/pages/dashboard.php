@@ -395,7 +395,7 @@
                                                 <td>" . $row["barName"] . "</td>
                                                 <td>" . $row["customerFullName"] . "</td>
                                                 <td>" . $row["productName"] . "</td>
-                                                <td>" . $row["totalPrice"] . "</td>
+                                                <td>" . number_format($row["totalPrice"]) . "</td>
                                                 <td>" . $row["tableNumber"] . "</td>
                                                 <td>";
                                         if ($row["orderStatus"] == 'ATTENDED') {

@@ -66,11 +66,17 @@
         </li><!-- End products Nav -->
 
         <li class="nav-item">
-            <a class="nav-link collapsed" href="feedback.php">
-                <i class="bi bi-stickies"></i>
-                <span>Feedback</span>
+            <a class="nav-link collapsed" data-bs-target="#invoices-nav" data-bs-toggle="collapse" href="#">
+                <i class="bi bi-list-check"></i><span>Invoice</span><i class="bi bi-chevron-down ms-auto"></i>
             </a>
-        </li><!-- End Feedback Page Nav -->
+            <ul id="invoices-nav" class="nav-content collapse " data-bs-parent="#sidebar-nav">
+                <li>
+                    <a href="employeeViewInvoices.php">
+                        <i class="bi bi-view-list"></i><span>View Invoice</span>
+                    </a>
+                </li>
+            </ul>
+        </li><!-- End Invoices Nav -->
 
     </ul>';
         }
@@ -101,13 +107,19 @@
             </ul>
         </li><!-- End Orders Nav -->
 
-
         <li class="nav-item">
-            <a class="nav-link collapsed" href="feedback.php">
-                <i class="bi bi-stickies"></i>
-                <span>Feedback</span>
+            <a class="nav-link collapsed" data-bs-target="#invoices-nav" data-bs-toggle="collapse" href="#">
+                <i class="bi bi-list-check"></i><span>Invoice</span><i class="bi bi-chevron-down ms-auto"></i>
             </a>
-        </li><!-- End feedback Page Nav -->
+            <ul id="invoices-nav" class="nav-content collapse " data-bs-parent="#sidebar-nav">
+                <li>
+                    <a href="employeeViewInvoices.php">
+                        <i class="bi bi-view-list"></i><span>View Invoice</span>
+                    </a>
+                </li>
+            </ul>
+        </li><!-- End Invoices Nav -->
+
 
     </ul>';
         }
@@ -143,12 +155,32 @@
             </ul>
         </li><!-- End Orders Nav -->
 
+        <li class="nav-item">
+            <a class="nav-link collapsed" data-bs-target="#invoices-nav" data-bs-toggle="collapse" href="#">
+                <i class="bi bi-list-check"></i><span>Invoice</span><i class="bi bi-chevron-down ms-auto"></i>
+            </a>
+            <ul id="invoices-nav" class="nav-content collapse " data-bs-parent="#sidebar-nav">
+                <li>
+                    <a href="viewInvoices.php">
+                        <i class="bi bi-view-list"></i><span>View Invoice</span>
+                    </a>
+                </li>
+            </ul>
+        </li><!-- End Invoices Nav -->
+
+        <li class="nav-item">
+            <a class="nav-link collapsed" href="report.php">
+                <i class="bi bi-card-checklist"></i>
+                <span>Report</span>
+            </a>
+        </li><!-- End Report Nav -->
+
 
     </ul>
             ';
         }
         ?>
 
-        
+
 
 </aside><!-- End Sidebar-->

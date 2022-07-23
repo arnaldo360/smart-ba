@@ -28,13 +28,13 @@
          <div class="row">
              <div class="col-lg-12">
 
-                 <div class="alert alert-danger alert-dismissible fade show">
+                 <div class="alert alert-primary alert-dismissible fade show">
                      <form action="../backend/activateBarController.php?id=<?php echo $_GET["id"]; ?>" method="POST">
                          <h4 class="alert-heading">Activate Bar</h4>
-                         <p>Activate this record? </p>
+                         <p>Do you really want to Activate this Bar? </p>
                          <hr>
                          <div class="text-center">
-                             <button type="submit" class="btn btn-danger">Yes</button>
+                             <button type="submit" class="btn btn-primary">Yes</button>
                              <a href="viewBar.php"><button type="button" class="btn btn-secondary">No</button></a>
 
                          </div>

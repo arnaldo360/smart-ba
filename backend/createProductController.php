@@ -112,7 +112,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     }
 
     // check errors before inserting bar into database
-    if (empty($productname_err) && empty($type_err) && empty($category_err) && empty($alcoholPercentage_err) && empty($volume_err) && empty($unit_err) && empty($quantity_err) && empty($price_err) && empty($description_err) && empty($photo_err) && empty($barId_err)) {
+    //if (is_null()) {
 
         // prepare an insert statement
         $barSql = "INSERT INTO product (`productName`, `productDescription`, `productType`, `productCategory`, `productImage`, `productPrice`, `productQuantity`, `productUnit`, `productVolume`, `alcoholPercentage`, `barID`)
@@ -144,10 +144,13 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
             // close statement
             $statement->close();
+
+        // close connection
+        $mysqli->close();
         } else {
             echo "Failed to prepare";
         }
-    } else {
-        echo "not working";
-    }
+    // } else {
+    //     echo "not working";
+    // }
 }

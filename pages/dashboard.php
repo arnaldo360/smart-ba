@@ -74,7 +74,7 @@
                          </div>
                      </div><!-- End Employee Card -->
 
-                     <!-- Order Card -->
+                     <!--pending Order Card -->
                      <div class="col-xxl-4 col-md-6">
                          <div class="card info-card revenue-card">
 
@@ -92,20 +92,20 @@
                              </div>
 
                              <div class="card-body">
-                                 <a href="managerViewOrders.php">
-                                     <h5 class="card-title">Orders</h5>
+                                 <a href="employeeViewOrders.php">
+                                     <h5 class="card-title">Pending Orders</h5>
                                  </a>
-
 
                                  <div class="d-flex align-items-center">
                                      <div class="card-icon rounded-circle d-flex align-items-center justify-content-center">
+
                                          <i class="bi bi-minecart-loaded"></i>
                                      </div>
                                      <div class="ps-3">
-                                         <a href="managerViewOrders.php">
+                                         <a href="employeeViewOrders.php">
                                              <?php
                                                 require_once "../database/dbConnect.php";
-                                                $result = mysqli_query($mysqli, "Select count(ordersId) AS countOrder from orders o join order_list ol on o.orderListId = ol.orderListId JOIN product p on ol.productId = p.productId where p.barID = $barId; ");
+                                                $result = mysqli_query($mysqli, "Select count(ordersId) AS countOrder from orders o join order_list ol on o.orderListId = ol.orderListId join product p on ol.productId = p.productId where p.barID = $barId and o.orderStatus = 'PENDING'; ");
                                                 $countOrder = mysqli_fetch_assoc($result);
 
                                                 echo "<h6>" . $countOrder['countOrder'] . "</h6>";
@@ -117,9 +117,9 @@
                              </div>
 
                          </div>
-                     </div><!-- End Order Card -->
+                     </div><!-- End pending Order Card -->
 
-                     <!-- Product Card -->
+                     <!-- attended order Card -->
                      <div class="col-xxl-4 col-xl-12">
 
                          <div class="card info-card customers-card">
@@ -138,34 +138,35 @@
                              </div>
 
                              <div class="card-body">
-                                 <a href="viewProduct.php">
-                                     <h5 class="card-title">Product</h5>
+
+                                 <a href="employeeViewOrders.php">
+                                     <h5 class="card-title">Attended Orders</h5>
                                  </a>
 
                                  <div class="d-flex align-items-center">
                                      <div class="card-icon rounded-circle d-flex align-items-center justify-content-center">
-                                         <i class="bi bi-hdd-stack"></i>
+                                         <i class="bi bi-minecart-loaded"></i>
                                      </div>
                                      <div class="ps-3">
-                                         <a href="viewProduct.php">
+                                         <a href="employeeViewOrders.php">
                                              <?php
                                                 require_once "../database/dbConnect.php";
-                                                $result = mysqli_query($mysqli, "Select count(productId) AS countProduct from product where barID = $barId; ");
-                                                $countProduct = mysqli_fetch_assoc($result);
+                                                $result = mysqli_query($mysqli, "Select count(ordersId) AS countOrder from orders o join order_list ol on o.orderListId = ol.orderListId join product p on ol.productId = p.productId where p.barID = $barId and o.orderStatus = 'ATTENDED'; ");
+                                                $countOrder = mysqli_fetch_assoc($result);
 
-                                                echo "<h6>" . $countProduct['countProduct'] . "</h6>";
+                                                echo "<h6>" . $countOrder['countOrder'] . "</h6>";
                                                 ?>
                                          </a>
-
                                      </div>
                                  </div>
 
                              </div>
                          </div>
 
-                     </div><!-- End Product Card -->
+                     </div><!-- End atternded order Card -->
 
-                     <!-- Feedback Card -->
+
+                     <!-- paid order Card -->
                      <div class="col-xxl-4 col-md-6">
                          <div class="card info-card sales-card">
 
@@ -183,22 +184,23 @@
                              </div>
 
                              <div class="card-body">
-                                 <a href="feedback.php">
-                                     <h5 class="card-title">Feedback</h5>
+
+                                 <a href="employeeViewOrders.php">
+                                     <h5 class="card-title">Paid Orders</h5>
                                  </a>
 
                                  <div class="d-flex align-items-center">
                                      <div class="card-icon rounded-circle d-flex align-items-center justify-content-center">
-                                         <i class="bi bi-stickies"></i>
+                                         <i class="bi bi-minecart-loaded"></i>
                                      </div>
                                      <div class="ps-3">
-                                         <a href="feedback.php">
+                                         <a href="employeeViewOrders.php">
                                              <?php
                                                 require_once "../database/dbConnect.php";
-                                                $result = mysqli_query($mysqli, "Select count(feedbackId) AS countFeedback from feedback; ");
-                                                $countFeedback = mysqli_fetch_assoc($result);
+                                                $result = mysqli_query($mysqli, "Select count(ordersId) AS countOrder from orders o join order_list ol on o.orderListId = ol.orderListId join product p on ol.productId = p.productId where p.barID = $barId and o.orderStatus = 'PAID'; ");
+                                                $countOrder = mysqli_fetch_assoc($result);
 
-                                                echo "<h6>" . $countFeedback['countFeedback'] . "</h6>";
+                                                echo "<h6>" . $countOrder['countOrder'] . "</h6>";
                                                 ?>
                                          </a>
                                      </div>
@@ -206,10 +208,96 @@
                              </div>
 
                          </div>
-                     </div><!-- End Feedback Card -->
+                     </div><!-- End Paid order Card -->
 
+                     <!-- product Card -->
+                     <div class="col-xxl-4 col-md-6">
+                         <div class="card info-card revenue-card">
 
+                             <div class="filter">
+                                 <a class="icon" href="#" data-bs-toggle="dropdown"><i class="bi bi-three-dots"></i></a>
+                                 <ul class="dropdown-menu dropdown-menu-end dropdown-menu-arrow">
+                                     <li class="dropdown-header text-start">
+                                         <h6>Filter</h6>
+                                     </li>
 
+                                     <li><a class="dropdown-item" href="#">Today</a></li>
+                                     <li><a class="dropdown-item" href="#">This Month</a></li>
+                                     <li><a class="dropdown-item" href="#">This Year</a></li>
+                                 </ul>
+                             </div>
+
+                             <div class="card-body">
+                                 <a href="viewProduct.php">
+                                     <h5 class="card-title">Products</h5>
+                                 </a>
+
+                                 <div class="d-flex align-items-center">
+                                     <div class="card-icon rounded-circle d-flex align-items-center justify-content-center">
+                                         <i class="bi bi-hdd-stack"></i>
+                                     </div>
+                                     <div class="ps-3">
+                                         <a href="viewProduct.php">
+                                            <?php
+                                                require_once "../database/dbConnect.php";
+                                                $result = mysqli_query($mysqli, "Select count(productId) AS countProduct from product where barID = $barId; ");
+                                                $countProduct = mysqli_fetch_assoc($result);
+
+                                                echo "<h6>" . $countProduct['countProduct'] . "</h6>";
+                                            ?>
+                                         </a>
+                                     </div>
+                                 </div>
+                             </div>
+
+                         </div>
+                     </div><!-- End product Card -->
+
+                     <!-- invoice Card -->
+                     <div class="col-xxl-4 col-xl-12">
+
+                         <div class="card info-card customers-card">
+
+                             <div class="filter">
+                                 <a class="icon" href="#" data-bs-toggle="dropdown"><i class="bi bi-three-dots"></i></a>
+                                 <ul class="dropdown-menu dropdown-menu-end dropdown-menu-arrow">
+                                     <li class="dropdown-header text-start">
+                                         <h6>Filter</h6>
+                                     </li>
+
+                                     <li><a class="dropdown-item" href="#">Today</a></li>
+                                     <li><a class="dropdown-item" href="#">This Month</a></li>
+                                     <li><a class="dropdown-item" href="#">This Year</a></li>
+                                 </ul>
+                             </div>
+
+                             <div class="card-body">
+
+                                 <a href="employeeViewInvoices.php">
+                                     <h5 class="card-title">Invoice</h5>
+                                 </a>
+
+                                 <div class="d-flex align-items-center">
+                                     <div class="card-icon rounded-circle d-flex align-items-center justify-content-center">
+                                         <i class="bi bi-list-check"></i>
+                                     </div>
+                                     <div class="ps-3">
+                                         <a href="employeeViewInvoices.php">
+                                             <?php
+                                                require_once "../database/dbConnect.php";
+                                                $result = mysqli_query($mysqli, "Select count(invoiceId) AS countInvoice from invoice i join orders o on i.orderId = o.ordersId join order_list ol on o.orderListId = ol.orderListId join product p on ol.productId = p.productId where p.barID = $barId and i.invoiceStatus = 'ACTIVE'; ");
+                                                $countOrder = mysqli_fetch_assoc($result);
+
+                                                echo "<h6>" . $countOrder['countInvoice'] . "</h6>";
+                                                ?>
+                                         </a>
+                                     </div>
+                                 </div>
+
+                             </div>
+                         </div>
+
+                     </div><!-- End invoice Card -->
 
                      <!-- Recent Orders -->
                      <div class="col-12">
@@ -269,7 +357,7 @@
                                                 <td>" . $row["employeeFullName"] . "</td>
                                                 <td>" . $row["productName"] . "</td>                                                
                                                 <td>" . $row["quantity"] . "</td>
-                                                <td>" . $row["totalPrice"] . "</td>
+                                                <td>" . number_format($row["totalPrice"] ). "</td>
                                                 <td>" . $row["tableNumber"] . "</td>
                                                 <td>";
                                         if ($row["orderStatus"] == 'ATTENDED') {

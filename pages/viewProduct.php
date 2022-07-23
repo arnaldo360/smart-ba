@@ -51,7 +51,7 @@
                      <?php
                         require_once("../database/dbConnect.php");
 
-                        $sql = "SELECT * FROM product JOIN bar ON product.barID = bar.barId";
+                        $sql = "SELECT * FROM product JOIN bar ON product.barID = bar.barId WHERE product.barID = $barId WHERE p.productStatus = 'ACTIVE'";
 
                         $results = mysqli_query($mysqli, $sql);
 

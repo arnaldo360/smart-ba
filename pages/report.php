@@ -37,54 +37,50 @@
                  <div class="card-body">
                      <h5 class="card-title">View Report</h5>
 
-                     <table class="table table-borderless datatable">
+                      <?php
+                        require_once("../database/dbConnect.php");
+
+                        $sql = "SELECT b.barName, i.createdAt, sum(i.grant_price) AS totalAmt, i.invoiceStatus FROM bar b 
+                                JOIN product p ON p.barID = b.barId 
+                                JOIN order_list ol ON ol.productId = p.productId
+                                JOIN orders o ON o.orderListId = ol.orderListId
+                                JOIN invoice i ON i.orderId = o.ordersId
+                                JOIN customer c ON c.customerID = i.customerId
+                                WHERE i.customerId = 1 AND i.invoiceStatus = 'PAID'
+                                GROUP BY i.tableNumber
+                                ORDER BY i.createdAt ASC";
+
+                        $results = mysqli_query($mysqli, $sql);
+
+                        echo "<table class='table table-borderless datatable'>
                          <thead>
                              <tr>
-                                 <th scope="col">#</th>
-                                 <th scope="col">Customer</th>
-                                 <th scope="col">Product</th>
-                                 <th scope="col">Price</th>
-                                 <th scope="col">Status</th>
+                                 <th scope='col'>#</th>
+                                 <th scope='col'>Bar Name</th>
+                                 <th scope='col'>Date</th>
+                                 <th scope='col'>Amount</th>
+                                 <th scope='col'>Status</th>
                              </tr>
                          </thead>
-                         <tbody>
-                             <tr>
-                                 <th scope="row"><a href="#">#2457</a></th>
-                                 <td>Brandon Jacob</td>
-                                 <td><a href="#" class="text-primary">At praesentium minu</a></td>
-                                 <td>$64</td>
-                                 <td><span class="badge bg-success">Approved</span></td>
-                             </tr>
-                             <tr>
-                                 <th scope="row"><a href="#">#2147</a></th>
-                                 <td>Bridie Kessler</td>
-                                 <td><a href="#" class="text-primary">Blanditiis dolor omnis similique</a></td>
-                                 <td>$47</td>
-                                 <td><span class="badge bg-warning">Pending</span></td>
-                             </tr>
-                             <tr>
-                                 <th scope="row"><a href="#">#2049</a></th>
-                                 <td>Ashleigh Langosh</td>
-                                 <td><a href="#" class="text-primary">At recusandae consectetur</a></td>
-                                 <td>$147</td>
-                                 <td><span class="badge bg-success">Approved</span></td>
-                             </tr>
-                             <tr>
-                                 <th scope="row"><a href="#">#2644</a></th>
-                                 <td>Angus Grady</td>
-                                 <td><a href="#" class="text-primar">Ut voluptatem id earum et</a></td>
-                                 <td>$67</td>
-                                 <td><span class="badge bg-danger">Rejected</span></td>
-                             </tr>
-                             <tr>
-                                 <th scope="row"><a href="#">#2644</a></th>
-                                 <td>Raheem Lehner</td>
-                                 <td><a href="#" class="text-primary">Sunt similique distinctio</a></td>
-                                 <td>$165</td>
-                                 <td><span class="badge bg-success">Approved</span></td>
-                             </tr>
-                         </tbody>
-                     </table>
+                         <tbody>";
+
+                        // output data of each row
+                        $count = 1;
+                        while ($row = mysqli_fetch_array($results)) {
+                            $barID = 'barID' . $count;
+                            echo "<tr>
+                                <td scope='row'>" . $count . "</td>
+                                 <th>" . $row["barName"] . "</th>
+                                 <td>" . $row["createdAt"] . "</td>
+                                 <td>" . number_format($row["totalAmt"]) . " /= Tsh</td>
+                                 <td>" . $row["invoiceStatus"] . "</td>
+                             </tr>";
+                            $count = $count + 1;
+                        }
+                        echo " </tbody>
+                     </table>";
+
+                     ?>
 
                  </div>
 

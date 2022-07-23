@@ -19,19 +19,20 @@ if (isset($_GET['id']) && !empty($_GET['id'])) {
     $param_orders_id    = $order_id;
     $param_employee_id  = $_SESSION["id"];
 
+
     if ($stmt->execute()) {
 
-      header("Location: ../pages/employeeViewOrders.php?redirect=order_paid");
-
+      $sqlStatus = "UPDATE invoice SET invoiceStatus ='PAID' WHERE orderId = $order_id";
+      if ($mysqli->query($sqlStatus)) {
+        header("Location: ../pages/employeeViewOrders.php?redirect=order_paid");
+      }
     } else {
       echo "Failed to execute";
     }
 
     // close statement
     $stmt->close();
-
   } else {
     echo "Failed to prepare";
   }
-
 }

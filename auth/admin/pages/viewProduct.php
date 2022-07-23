@@ -74,7 +74,7 @@
                                  <th>" . $row["barName"] . "</th>
                                  <td>" . $row["productName"] . "</td>
                                  <td>" . $row["productQuantity"] . "</td>
-                                 <td>" . $row["productPrice"] . " Tzs</td>
+                                 <td>" . number_format($row["productPrice"] ). " Tzs</td>
                                  <td>";
                             if ($row["productStatus"] == 'ACTIVE') {
                                 echo "<span class='badge rounded-pill bg-success'>Active</span>";

@@ -8,12 +8,6 @@
         // mobile mask
         $('#mobile').mask('0000-000-000');
 
-        // name validation method
-        $.validator.addMethod('name_validation', function(value, element, param) {
-            var nameRegex = /^[a-zA-Z]+[a-zA-Z]+$/;
-            return value.match(nameRegex);
-        });
-
         // email validation method
         $.validator.addMethod('email', function(value, element, param) {
             var nameRegex = /^\S+@\S+\.\S+$/;
@@ -26,17 +20,6 @@
             return value.match(nameRegex);
         });
 
-        // password validation method
-        // $.validator.addMethod('password', function(value, element, param) {
-        //     var nameRegex = /^[#.0-9a-zA-Z\s,-]+$/;
-        //     return value.match(nameRegex);
-        // });
-
-        // confirm password validation method
-        // $.validator.addMethod('confirmpassword', function(value, element, param) {
-        //     var nameRegex = /^[#.0-9a-zA-Z\s,-]+$/;
-        //     return value.match(nameRegex);
-        // });
 
         //fuction to match password and confirm password
         $('#password, #confirmpassword').on('keyup', function() {
@@ -50,8 +33,7 @@
         $("#createEmployeeForm").validate({
             rules: {
                 fullname: {
-                    required: true,
-                    name_validation: true
+                    required: true
                 },
                 contact: {
                     required: true,
@@ -120,10 +102,10 @@
         $('#mobile').mask('0000-000-000');
 
         // name validation method
-        $.validator.addMethod('name_validation', function(value, element, param) {
-            var nameRegex = /^[a-zA-Z]+[a-zA-Z]+$/;
-            return value.match(nameRegex);
-        });
+        // $.validator.addMethod('name_validation', function(value, element, param) {
+        //     var nameRegex = /^[a-zA-Z]+[a-zA-Z]+$/;
+        //     return value.match(nameRegex);
+        // });
 
         // email validation method
         $.validator.addMethod('email', function(value, element, param) {
@@ -141,8 +123,7 @@
         $("#editEmployeeForm").validate({
             rules: {
                 fullname: {
-                    required: true,
-                    name_validation: true
+                    required: true
                 },
                 contact: {
                     required: true,

@@ -3,7 +3,7 @@
 $barId = $_SESSION["barID"];
 
 // retrieve all products from database
-$sql = "SELECT * FROM product WHERE barID = $barId";
+$sql = "SELECT * FROM product WHERE barID = $barId AND productStatus = 'ACTIVE'";
 
 if ($stmt = $mysqli->prepare($sql)) {
 

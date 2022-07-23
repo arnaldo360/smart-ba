@@ -82,7 +82,7 @@
                                          </div>
 
                                          <div class="d-flex align-items-center justify-content-between mt-1">
-                                             <h4 class="font-weight-bold my-2"><?= $product_rows["productPrice"] . " TZS"; ?></h4>
+                                             <h4 class="font-weight-bold my-2"><?= number_format($product_rows["productPrice"]) . " TZS"; ?></h4>
                                          </div>
                                          <div class="mt-6">
                                              <form id="orderForm" action="../backend/orderProductsController.php" method="POST">

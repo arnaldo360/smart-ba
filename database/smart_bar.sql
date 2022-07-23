@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Jun 22, 2022 at 12:08 AM
+-- Generation Time: Jul 23, 2022 at 06:15 PM
 -- Server version: 10.4.24-MariaDB
 -- PHP Version: 8.1.6
 
@@ -101,6 +101,40 @@ CREATE TABLE `feedback` (
 -- --------------------------------------------------------
 
 --
+-- Table structure for table `invoice`
+--
+
+CREATE TABLE `invoice` (
+  `invoiceId` int(11) NOT NULL,
+  `invoiceNumber` int(11) DEFAULT NULL,
+  `orderId` int(11) DEFAULT NULL,
+  `customerId` int(11) DEFAULT NULL,
+  `tableNumber` int(11) DEFAULT NULL,
+  `grant_price` varchar(45) DEFAULT NULL,
+  `invoiceStatus` varchar(45) DEFAULT 'ACTIVE',
+  `createdAt` datetime DEFAULT current_timestamp()
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `invoice_product`
+--
+
+CREATE TABLE `invoice_product` (
+  `invoice_productId` int(11) NOT NULL,
+  `invoiceId` int(11) DEFAULT NULL,
+  `productId` int(11) DEFAULT NULL,
+  `price` varchar(45) DEFAULT NULL,
+  `quantity` varchar(45) DEFAULT NULL,
+  `total` varchar(45) DEFAULT NULL,
+  `invoice_productStatus` varchar(45) DEFAULT 'ACTIVE',
+  `createAt` datetime DEFAULT current_timestamp()
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+-- --------------------------------------------------------
+
+--
 -- Table structure for table `manager`
 --
 
@@ -164,11 +198,11 @@ CREATE TABLE `product` (
   `productType` varchar(45) DEFAULT NULL,
   `productCategory` varchar(45) DEFAULT NULL,
   `productImage` varchar(45) DEFAULT NULL,
-  `productPrice` int(11) DEFAULT NULL,
+  `productPrice` int(11) DEFAULT 0,
   `productQuantity` int(11) DEFAULT NULL,
-  `productUnit` varchar(45) NOT NULL,
-  `productVolume` varchar(45) NOT NULL,
-  `alcoholPercentage` varchar(45) NOT NULL,
+  `productUnit` varchar(45) DEFAULT NULL,
+  `productVolume` varchar(45) DEFAULT NULL,
+  `alcoholPercentage` varchar(45) DEFAULT NULL,
   `barID` int(11) DEFAULT NULL,
   `productStatus` varchar(45) NOT NULL DEFAULT 'ACTIVE',
   `createdAt` datetime NOT NULL DEFAULT current_timestamp()
@@ -226,6 +260,21 @@ ALTER TABLE `employee`
 --
 ALTER TABLE `feedback`
   ADD PRIMARY KEY (`feedbackId`);
+
+--
+-- Indexes for table `invoice`
+--
+ALTER TABLE `invoice`
+  ADD PRIMARY KEY (`invoiceId`),
+  ADD KEY `orderId` (`orderId`);
+
+--
+-- Indexes for table `invoice_product`
+--
+ALTER TABLE `invoice_product`
+  ADD PRIMARY KEY (`invoice_productId`),
+  ADD KEY `productId` (`productId`),
+  ADD KEY `invoiceId` (`invoiceId`);
 
 --
 -- Indexes for table `manager`
@@ -292,6 +341,18 @@ ALTER TABLE `feedback`
   MODIFY `feedbackId` int(11) NOT NULL AUTO_INCREMENT;
 
 --
+-- AUTO_INCREMENT for table `invoice`
+--
+ALTER TABLE `invoice`
+  MODIFY `invoiceId` int(11) NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT for table `invoice_product`
+--
+ALTER TABLE `invoice_product`
+  MODIFY `invoice_productId` int(11) NOT NULL AUTO_INCREMENT;
+
+--
 -- AUTO_INCREMENT for table `manager`
 --
 ALTER TABLE `manager`
@@ -336,6 +397,19 @@ ALTER TABLE `customer`
 --
 ALTER TABLE `employee`
   ADD CONSTRAINT `employee_ibfk_1` FOREIGN KEY (`employeeBar`) REFERENCES `bar` (`barId`) ON DELETE NO ACTION ON UPDATE NO ACTION;
+
+--
+-- Constraints for table `invoice`
+--
+ALTER TABLE `invoice`
+  ADD CONSTRAINT `invoice_ibfk_1` FOREIGN KEY (`orderId`) REFERENCES `orders` (`ordersId`) ON DELETE NO ACTION ON UPDATE NO ACTION;
+
+--
+-- Constraints for table `invoice_product`
+--
+ALTER TABLE `invoice_product`
+  ADD CONSTRAINT `invoice_product_ibfk_1` FOREIGN KEY (`productId`) REFERENCES `product` (`productId`) ON DELETE NO ACTION ON UPDATE NO ACTION,
+  ADD CONSTRAINT `invoice_product_ibfk_2` FOREIGN KEY (`invoiceId`) REFERENCES `invoice` (`invoiceId`) ON DELETE NO ACTION ON UPDATE NO ACTION;
 
 --
 -- Constraints for table `manager`

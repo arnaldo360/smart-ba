@@ -75,7 +75,7 @@
         </ul>
         <i class=" bi bi-list mobile-nav-toggle"></i>
       </nav><!-- navbar -->
-      <a href="#book-a-table" class="book-a-table-btn scrollto d-none d-lg-flex">Create Order</a>
+      <a href="#available-bar" class="book-a-table-btn scrollto d-none d-lg-flex">Available Bar</a>
 
     </div>
   </header><!-- End Header -->
@@ -125,8 +125,8 @@
               <li><i class="bi bi-check-circle"></i> “Happiness is having a rare steak, a bottle of whisky and a dog to eat the rare steak.”</li>
             </ul>
             <p>
-              Never lie, steal, cheat or drink. But if you must lie, lie in the arms of the one you love. 
-              If you must steal, steal away from bad company. If you must cheat, cheat death. 
+              Never lie, steal, cheat or drink. But if you must lie, lie in the arms of the one you love.
+              If you must steal, steal away from bad company. If you must cheat, cheat death.
               And if you must drink, drink in the moments that take your breath away.
             </p>
           </div>
@@ -174,6 +174,53 @@
 
       </div>
     </section><!-- End Why Us Section -->
+
+
+    <!-- ======= Available Bar Section ======= -->
+    <section id="available-bar" class="barlist">
+      <div class="container" data-aos="fade-up">
+
+        <div class="section-title">
+          <h2>Available Bar</h2>
+          <p>List Of Bar Using Smart-Bar</p>
+        </div>
+
+        <div class="row">
+
+          <?php require_once("database/dbConnect.php");
+
+          $sql = "SELECT * from bar";
+
+          $results = mysqli_query($mysqli, $sql);
+
+          // output data of each row
+          $count = 1;
+          while ($row = mysqli_fetch_array($results)) {
+            $barID = 'barID' . $count;
+
+            echo ' 
+           <a href="auth/customer/barlogin.php?bar_name=' . $row["barName"] . '&bar_id=' . $row["barId"] . '"class="col-sm-12 col-lg-3 order-1 order-lg-12 mt-5">
+              <div class="col-lg-4" >
+                <div class="card" style="width: 20rem;" data-aos="zoom-in" data-aos-delay="100">
+                  <img src="assets/img/image_7.png" class="card-img-top" alt="...">
+                  <div class="card-img-overlay">
+                    <h5 class="card-title" style="color: #d3af71;">' . 'Bar name :' . ' ' . $row["barName"] . '</h5>
+                      <p class="card-text" style="color: white;" >' . 'Bar Manager :' . ' ' . $row["barOwner"] . '<br>
+                    ' . 'Located at :' . ' ' . $row["barPhysicalAddress"] . '
+                    <br>' . '</p><br>
+                    
+                  </div>
+                </div>
+                </div>
+            </a>';
+          }
+
+          ?>
+
+        </div>
+
+      </div>
+    </section><!-- End Available Bar Section -->
 
     <!-- ======= Gallery Section ======= -->
     <section id="gallery" class="gallery">
@@ -241,6 +288,38 @@
             <div class="gallery-item">
               <a href="assets/img/gallery/img10.jpg" class="gallery-lightbox" data-gall="gallery-item">
                 <img src="assets/img/gallery/img10.jpg" alt="" class="img-fluid">
+              </a>
+            </div>
+          </div>
+
+          <div class="col-lg-3 col-md-4">
+            <div class="gallery-item">
+              <a href="assets/img/gallery/img8.jpg" class="gallery-lightbox" data-gall="gallery-item">
+                <img src="assets/img/gallery/img8.jpg" alt="" class="img-fluid">
+              </a>
+            </div>
+          </div>
+
+          <div class="col-lg-3 col-md-4">
+            <div class="gallery-item">
+              <a href="assets/img/gallery/img11.jpg" class="gallery-lightbox" data-gall="gallery-item">
+                <img src="assets/img/gallery/img11.jpg" alt="" class="img-fluid">
+              </a>
+            </div>
+          </div>
+
+          <div class="col-lg-3 col-md-4">
+            <div class="gallery-item">
+              <a href="assets/img/gallery/img7.jpg" class="gallery-lightbox" data-gall="gallery-item">
+                <img src="assets/img/gallery/img7.jpg" alt="" class="img-fluid">
+              </a>
+            </div>
+          </div>
+
+          <div class="col-lg-3 col-md-4">
+            <div class="gallery-item">
+              <a href="assets/img/gallery/img5.jpg" class="gallery-lightbox" data-gall="gallery-item">
+                <img src="assets/img/gallery/img5.jpg" alt="" class="img-fluid">
               </a>
             </div>
           </div>

@@ -59,13 +59,13 @@
                      <?php
                         require_once("../database/dbConnect.php");
 
-                        $sql = "SELECT c.customerFullName, o.ordersId, ol.quantity, p.productName, b.barName, o.orderStatus, o.tableNumber, ol.totalPrice FROM orders o 
+                        $sql = "SELECT c.customerFullName, ol.customerId ,o.ordersId, ol.quantity, p.productName, b.barName, o.orderStatus, o.tableNumber, ol.totalPrice FROM orders o 
                                             JOIN order_list ol ON o.orderListId = ol.orderListId
                                             JOIN customer c ON ol.customerId = c.customerID 
                                             JOIN product p ON ol.productId = p.productId
                                             JOIN bar b ON p.barID = b.barId
-                                            WHERE b.barId = $barId AND ol.customerId = $userId
-                                            ORDER BY o.ordersId DESC;";
+                                            WHERE b.barId = $barId
+                                            ORDER BY o.ordersId DESC";
 
                         $results = mysqli_query($mysqli, $sql);
 
@@ -105,10 +105,18 @@
                             }
 
                             echo "</td>
-                                <td>
-                                    <a href='../backend/approveOrderController.php?id=" . $row["ordersId"] . "'><button type='button' class='btn btn-success' id='$count'><i class='bi bi-check'></i></button></a>
-                                    <a href='../backend/paidOrderController.php?id=" . $row["ordersId"] . "'><button type='button' class='btn btn-primary' id='$count'><i class='bi bi-wallet2'></i></button></a>
-                                </td>
+                                <td>";
+                            if ($row["orderStatus"] == 'ATTENDED') {
+                                echo "<a href='../backend/paidOrderController.php?id=" . $row["ordersId"] . "'><button type='button' class='btn btn-primary' id='$count'><i class='bi bi-wallet2'></i></button></a>
+                                ";
+                            } elseif ($row["orderStatus"] == 'PENDING') {
+                                echo "<a href='../backend/approveOrderController.php?id=" . $row["ordersId"] . "'><button type='button' class='btn btn-success' id='$count'><i class='bi bi-check'></i></button></a>
+                                    ";
+                            } else {
+                                echo "<span class='badge rounded-pill bg-primary'>Paid</span>";
+                            }
+                            echo "
+                                    </td>
                                 </tr>";
                             $count = $count + 1;
                         }

@@ -21,11 +21,11 @@ if (isset($_POST['saveChanges'])) {
     }
 
     // Validate email
-    if (empty(trim($_POST["email"]))) {
-        $email_err = "Please enter email.";
-    } else {
-        $email = trim($_POST["email"]);
-    }
+    // if (empty(trim($_POST["email"]))) {
+    //     $email_err = "Please enter email.";
+    // } else {
+    //     $email = trim($_POST["email"]);
+    // }
 
     // Validate mobile
     if (empty(trim($_POST["mobile"]))) {
@@ -63,18 +63,17 @@ if (isset($_POST['saveChanges'])) {
     }
 
     // Check input errors before updating the database
-    if (empty($fullname_err) && empty($email_err) && empty($mobile_err) && empty($gender_err) && empty($title_err) && empty($address_err) && empty($date_err)) {
+    if (empty($fullname_err) && empty($mobile_err) && empty($gender_err) && empty($title_err) && empty($address_err) && empty($date_err)) {
 
         // Prepare an update statement
-        $sql = "UPDATE employee SET employeeFullName = ?, employeeEmail = ?, employeeContact = ?, employeeGender = ?, employeeTitle = ?, employeePhysicalAdd = ?, employeeDoB = ? WHERE employeeId = ?";
+        $sql = "UPDATE employee SET employeeFullName = ?, employeeContact = ?, employeeGender = ?, employeeTitle = ?, employeePhysicalAdd = ?, employeeDoB = ? WHERE employeeId = ?";
 
         if ($stmt = $mysqli->prepare($sql)) {
             // Bind variables to the prepared statement as parameters
-            $stmt->bind_param("sssssssi", $param_fullname, $param_email, $param_mobile, $param_gender, $param_title, $param_address, $param_date, $param_id);
+            $stmt->bind_param("ssssssi", $param_fullname, $param_mobile, $param_gender, $param_title, $param_address, $param_date, $param_id);
 
             // Set parameters
             $param_fullname = $fullname;
-            $param_email    = $email;
             $param_mobile   = $mobile;
             $param_gender   = $gender;
             $param_title    = $title;

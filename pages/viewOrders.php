@@ -42,6 +42,15 @@
                  <?php endif; ?>
              <?php endif; ?>
 
+             <?php if (isset($_GET["redirect"]) && !empty($_GET["redirect"])) : ?>
+                 <?php if ($_GET["redirect"] == "order_paid") : ?>
+                     <div class="alert alert-primary alert-dismissible fade show" role="alert">
+                         <i class="fas fa-check"></i><span class="ml-2">Order has been paid</span>
+                         <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                     </div>
+                 <?php endif; ?>
+             <?php endif; ?>
+
              <div class="card recent-sales overflow-auto">
 
                  <div class="card-body table-responsive">
@@ -50,7 +59,7 @@
                      <?php
                         require_once("../database/dbConnect.php");
 
-                        $sql = "SELECT o.ordersId, ol.quantity, p.productName, b.barName, o.orderStatus, o.tableNumber, ol.totalPrice FROM orders o 
+                        $sql = "SELECT c.customerID ,o.ordersId, ol.quantity, p.productName, b.barName, o.orderStatus, o.tableNumber, ol.totalPrice FROM orders o 
                                             JOIN order_list ol ON o.orderListId = ol.orderListId
                                             JOIN customer c ON ol.customerId = c.customerID 
                                             JOIN product p ON ol.productId = p.productId
@@ -80,13 +89,13 @@
                         while ($row = mysqli_fetch_array($results)) {
                             $orderID = 'orderID' . $count;
                             echo "<tr>
-                                                <td scope='row'>" . $count . "</td>
-                                                <td>" . $row["barName"] . "</td>
-                                                <td>" . $row["productName"] . "</td>
-                                                <td>" . $row["quantity"] . "</td>
-                                                <td>" . $row["totalPrice"] . "</td>
-                                                <td>" . $row["tableNumber"] . "</td>
-                                                <td>";
+                                    <td scope='row'>" . $count . "</td>
+                                    <td>" . $row["barName"] . "</td>
+                                    <td>" . $row["productName"] . "</td>
+                                    <td>" . $row["quantity"] . "</td>
+                                    <td>" . number_format($row["totalPrice"]) . "</td>
+                                    <td>" . $row["tableNumber"] . "</td>
+                                    <td>";
                             if ($row["orderStatus"] == 'ATTENDED') {
                                 echo "<span class='badge rounded-pill bg-success'>Attended</span>";
                             } elseif ($row["orderStatus"] == 'PENDING') {
@@ -95,11 +104,24 @@
                                 echo "<span class='badge rounded-pill bg-primary'>Paid</span>";
                             }
 
-                            echo "</td>
-                                                <td>
-                                                    <a href='displayOrder.php?id=" . $row["ordersId"] . "'><button type='button' class='btn btn-info' id='$count'><i class='bi bi-eye'></i></button></a>
-                                                </td>
-                                                </tr>";
+                            echo "</td>";
+                            if ($row["orderStatus"] == 'PENDING') {
+                                echo "<td>
+                                            <a href='displayOrder.php?id=" . $row["ordersId"] . "'><button type='button' class='btn btn-info' id='$count'><i class='bi bi-eye'></i></button></a>
+                                        </td>
+                                        </tr>";
+                            } elseif ($row["orderStatus"] == 'ATTENDED') {
+                                echo "<td>
+                                            <a href='../backend/customerPaidController.php?id=" . $row["ordersId"] . "'><button type='button' class='btn btn-primary' id='$count'><i class='bi bi-wallet2'></i></button></a>
+                                        </td>
+                                        </tr>";
+                            } else {
+                                echo "<td>
+                                            <a href='viewInvoices.php'><button type='button' class='btn btn-success' id='$count'><i class='bi bi-card-checklist'></i></button></a>
+                                        </td>
+                                        </tr>";
+                            }
+
                             $count = $count + 1;
                         }
                         echo " </tbody>
