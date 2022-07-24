@@ -37,16 +37,16 @@
                  <div class="card-body">
                      <h5 class="card-title">View Report</h5>
 
-                      <?php
+                     <?php
                         require_once("../database/dbConnect.php");
 
-                        $sql = "SELECT b.barName, i.createdAt, sum(i.grant_price) AS totalAmt, i.invoiceStatus FROM bar b 
+                        $sql = "SELECT c.customerFullName ,b.barName, i.createdAt, sum(i.grant_price) AS totalAmt, i.invoiceStatus FROM bar b 
                                 JOIN product p ON p.barID = b.barId 
                                 JOIN order_list ol ON ol.productId = p.productId
                                 JOIN orders o ON o.orderListId = ol.orderListId
                                 JOIN invoice i ON i.orderId = o.ordersId
                                 JOIN customer c ON c.customerID = i.customerId
-                                WHERE i.customerId = $userId AND i.invoiceStatus = 'PAID'
+                                WHERE b.barId = $barId AND i.invoiceStatus = 'PAID'
                                 GROUP BY i.tableNumber
                                 ORDER BY i.createdAt ASC";
 
@@ -56,7 +56,7 @@
                          <thead>
                              <tr>
                                  <th scope='col'>#</th>
-                                 <th scope='col'>Bar Name</th>
+                                 <th scope='col'>Customer Name</th>
                                  <th scope='col'>Date</th>
                                  <th scope='col'>Amount</th>
                                  <th scope='col'>Status</th>
@@ -70,24 +70,24 @@
                             $barID = 'barID' . $count;
                             echo "<tr>
                                 <td scope='row'>" . $count . "</td>
-                                 <th>" . $row["barName"] . "</th>
+                                 <th>" . $row["customerFullName"] . "</th>
                                  <td>" . $row["createdAt"] . "</td>
-                                 <td>" . number_format($row["totalAmt"]) . " /= Tsh</td>
+                                 <td>" . number_format($row["totalAmt"]) ." /= Tsh</td>
                                  <td>";
                                     if ($row["invoiceStatus"] == 'ACTIVE') {
                                         echo "<span class='badge rounded-pill bg-success'>Active</span>";
                                     } else {
                                         echo "<span class='badge rounded-pill bg-primary'>Paid</span>";
-                                    }
-
-                            echo "</td>
+                                    } 
+                                 
+                                echo "</td>
                              </tr>";
                             $count = $count + 1;
                         }
                         echo " </tbody>
                      </table>";
 
-                     ?>
+                        ?>
 
                  </div>
 

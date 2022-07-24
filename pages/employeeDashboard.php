@@ -57,7 +57,7 @@
                                      <div class="ps-3">
                                          <?php
                                             require_once "../database/dbConnect.php";
-                                            $result = mysqli_query($mysqli, "SELECT count(c.customerID) as countEmployee FROM customer c WHERE c.BarId = $barId");
+                                            $result = mysqli_query($mysqli, "SELECT count(c.customerID) as countEmployee FROM customer c");
                                             $countEmployee = mysqli_fetch_assoc($result);
 
                                             echo "<h6>" . $countEmployee['countEmployee'] . "</h6>";

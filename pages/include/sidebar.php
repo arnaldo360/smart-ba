@@ -78,6 +78,13 @@
             </ul>
         </li><!-- End Invoices Nav -->
 
+        <li class="nav-item">
+            <a class="nav-link collapsed" href="managerReport.php">
+                <i class="bi bi-card-checklist"></i>
+                <span>Report</span>
+            </a>
+        </li><!-- End Report Nav -->
+
     </ul>';
         }
         ?>
